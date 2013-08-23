@@ -1,6 +1,6 @@
 package com.ctco.w4d4taskatayeva;
 
-import java.util.*;
+import java.util.HashMap;
 
 public class StringProcessor {
 
