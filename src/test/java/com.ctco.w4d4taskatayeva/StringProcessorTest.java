@@ -8,33 +8,33 @@ public class StringProcessorTest {
     StringProcessor stringProcessor = new StringProcessor();
 
     @Test(expected = NullPointerException.class)
-    public void shouldThrowNullPointerExceptionIfStringIsEmpty() throws Exception {
+    public void shouldThrowNullPointerExceptionIfStringIsEmpty() {
         stringProcessor.processString("");
     }
 
     @Test
-    public void shouldReturnBasicStringIfNoBackslash() throws Exception {
+    public void shouldReturnBasicStringIfNoBackslash() {
         String expected = "abcdef";
         String actual = stringProcessor.processString(expected);
         assertEquals(expected, actual);
     }
 
     @Test
-    public void shouldRemoveTwoBackslashesAndNewLines() throws Exception {
+    public void shouldRemoveTwoBackslashesAndNewLines() {
         String expected = "abcdef";
         String actual = stringProcessor.processString("ab\\\ncd\\\nef");
         assertEquals(expected, actual);
     }
 
     @Test
-    public void shouldRemoveOneBackSlashAndNewLine() throws Exception {
+    public void shouldRemoveOneBackSlashAndNewLine() {
         String expected = "abcdef";
         String actual = stringProcessor.processString("abc\\\ndef");
         assertEquals(expected, actual);
     }
 
     @Test
-    public void shouldNotRemoveIfNewLineIsBeforeBackslash() throws Exception {
+    public void shouldNotRemoveIfNewLineIsBeforeBackslash() {
         String expected = "abc\n\\def";
         String actual = stringProcessor.processString(expected);
         assertEquals(expected, actual);
@@ -48,14 +48,14 @@ public class StringProcessorTest {
     }
 
     @Test
-    public void shouldNotBeModifiedIfOnlyNewLineWithoutBackSlashAheadIsFound() throws Exception {
+    public void shouldNotBeModifiedIfOnlyNewLineWithoutBackSlashAheadIsFound() {
         String expected = "abc\ndef";
         String actual = stringProcessor.processString(expected);
         assertEquals(expected, actual);
     }
 
     @Test
-     public void shouldProcessFirstElementInString() throws Exception {
+    public void shouldProcessFirstElementInString() {
         String expected = "abcdef";
         String actual = stringProcessor.processString("\\\nabcdef");
         assertEquals(expected, actual);
@@ -63,7 +63,7 @@ public class StringProcessorTest {
     }
 
     @Test
-    public void shouldProcessLastElementInString() throws Exception {
+    public void shouldProcessLastElementInString() {
         String expected = "abcdef";
         String actual = stringProcessor.processString("abcdef\\\n");
         assertEquals(expected, actual);
