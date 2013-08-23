@@ -8,19 +8,18 @@ public class StringProcessor {
     private static final char NEWLINE = '\n';
 
     public String processString(String string) {
-        char[] charArray = string.toCharArray();
-        StringBuilder processedString = new StringBuilder();
-        HashMap<Integer, String> currentElementAndSymbolString;
-        String symbolString;
 
         if (string.isEmpty())
             throw new NullPointerException("String is Empty!");
 
+        char[] charArray = string.toCharArray();
+        StringBuilder processedString = new StringBuilder();
+
         for (int i = 0; i < charArray.length; i++) {
             if (charArray[i] == BACKSLASH) {
-                currentElementAndSymbolString = createSymbolString(i, charArray);
+                HashMap<Integer, String> currentElementAndSymbolString = createHashMapWithCurrentIndexAndString(i, charArray);
                 i = (int) currentElementAndSymbolString.keySet().toArray()[0];
-                symbolString = currentElementAndSymbolString.get(i);
+                String symbolString = currentElementAndSymbolString.get(i);
                 processedString.append(symbolString);
             } else {
                 processedString.append(charArray[i]);
@@ -30,10 +29,9 @@ public class StringProcessor {
         return processedString.toString();
     }
 
-    private HashMap<Integer, String> createSymbolString(int i, char[] charArray) {
+    private HashMap<Integer, String> createHashMapWithCurrentIndexAndString(int i, char[] charArray) {
         StringBuilder symbolString = new StringBuilder();
-        HashMap<Integer, String> currentElementAndSymbolString;
-        currentElementAndSymbolString = new HashMap<>();
+        HashMap<Integer, String> currentElementAndSymbolString = new HashMap<>();
 
         for (; i < charArray.length; i++) {
             if (charArray[i] == BACKSLASH) {
@@ -51,4 +49,6 @@ public class StringProcessor {
         }
         return currentElementAndSymbolString;
     }
+
+
 }
