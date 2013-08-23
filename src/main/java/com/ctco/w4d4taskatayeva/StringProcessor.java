@@ -1,7 +1,6 @@
 package com.ctco.w4d4taskatayeva;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class StringProcessor {
 
@@ -11,7 +10,7 @@ public class StringProcessor {
     public String processString(String string) {
         char[] charArray = string.toCharArray();
         StringBuilder processedString = new StringBuilder();
-        List currentElementAndSymbolString;
+        HashMap<Integer, String> currentElementAndSymbolString;
         String symbolString;
 
         if (string.isEmpty())
@@ -20,8 +19,8 @@ public class StringProcessor {
         for (int i = 0; i < charArray.length; i++) {
             if (charArray[i] == BACKSLASH) {
                 currentElementAndSymbolString = createSymbolString(i, charArray);
-                i = (Integer) currentElementAndSymbolString.get(0);
-                symbolString = (String) currentElementAndSymbolString.get(1);
+                i = (int) currentElementAndSymbolString.keySet().toArray()[0];
+                symbolString = currentElementAndSymbolString.get(i);
                 processedString.append(symbolString);
             } else {
                 processedString.append(charArray[i]);
@@ -31,27 +30,25 @@ public class StringProcessor {
         return processedString.toString();
     }
 
-    private List createSymbolString(int i, char[] charArray) {
+    private HashMap<Integer, String> createSymbolString(int i, char[] charArray) {
         StringBuilder symbolString = new StringBuilder();
-        List currentElementAndSymbolString = new ArrayList();
+        HashMap<Integer, String> currentElementAndSymbolString;
+        currentElementAndSymbolString = new HashMap<>();
 
         for (; i < charArray.length; i++) {
             if (charArray[i] == BACKSLASH) {
                 symbolString.append(charArray[i]);
             } else if (charArray[i] == NEWLINE) {
                 symbolString.delete(0, symbolString.length());
-                currentElementAndSymbolString.add(i);
-                currentElementAndSymbolString.add(symbolString.toString());
+                currentElementAndSymbolString.put(i, symbolString.toString());
                 break;
             } else {
                 i--;
-                currentElementAndSymbolString.add(i);
-                currentElementAndSymbolString.add(symbolString.toString());
+                currentElementAndSymbolString.put(i, symbolString.toString());
                 break;
             }
 
         }
         return currentElementAndSymbolString;
     }
-
 }
